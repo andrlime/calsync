@@ -4,6 +4,9 @@ import icalendar
 import recurring_ical_events  # type: ignore
 
 from calsync.util.config import AppConfig
+from calsync.util.logger import create_logger
+
+logger = create_logger()
 
 
 class FilterEvents:
@@ -15,6 +18,7 @@ class FilterEvents:
         self.events = events
 
     def filt(self) -> list[icalendar.Event]:
+        logger.info("Filtered events ok")
         return recurring_ical_events.of(self.events).between(  # type: ignore[no-any-return]
             self.begin.naive, self.end.naive
         )

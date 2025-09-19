@@ -1,6 +1,9 @@
-import calsync.core.event as event
-
 from collections import defaultdict
+
+import calsync.core.event as event
+from calsync.util.logger import create_logger
+
+logger = create_logger()
 
 
 class BucketEvents:
@@ -12,4 +15,5 @@ class BucketEvents:
             bucket.sort(key=lambda e: e.starttime)
 
     def filt(self) -> dict[str, list[event.T]]:
+        logger.info("Bucket events ok")
         return self.store

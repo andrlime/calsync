@@ -2,8 +2,11 @@ from pathlib import Path
 
 from calsync.core.output.base_file_writer import BaseFileWriter
 from calsync.util.config import AppConfig
+from calsync.util.logger import create_logger
 
 import calsync.core.event as event
+
+logger = create_logger()
 
 
 class ObsidianFileWriter(BaseFileWriter):
@@ -17,9 +20,12 @@ class ObsidianFileWriter(BaseFileWriter):
         self.end_marker = cfg.get_config_variable("end_marker")
 
     def replace_section_(self, path: str, new_text: str) -> None:
+        logger.info(f"Writing path {path}")
+
         file = Path(path)
 
         if not file.exists():
+            logger.warn(f"Path does not exist: {path}")
             return
 
         content = file.read_text(encoding="utf-8")
@@ -28,6 +34,7 @@ class ObsidianFileWriter(BaseFileWriter):
 
         markers_not_found = start == -1 or end == -1
         if markers_not_found:
+            logger.warn(f"Markers not found in path: {path}")
             return
 
         updated = (
@@ -37,6 +44,7 @@ class ObsidianFileWriter(BaseFileWriter):
 
     def write_day_(self, items: list[event.T]) -> None:
         if len(items) == 0:
+            logger.warn("No items found!")
             return
         filename = items[0].rawday.format("YY-MMDD-dddd")
         formatted_path = f"{self.base_url}/{filename}.md"
