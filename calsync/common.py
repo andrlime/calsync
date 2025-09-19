@@ -1,4 +1,4 @@
-project_name = "template"
+project_name = "calsync"
 
 
 def print_project_name() -> None:
