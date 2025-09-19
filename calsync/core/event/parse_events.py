@@ -10,12 +10,12 @@ logger = create_logger()
 class ParseEvents:
     def __init__(self, events: list[icalendar.Event]):
         self.events = [self.parse_event(e) for e in events]
-    
+
     def parse_event(self, e: icalendar.Event) -> event.T:
         event_name = e.get("SUMMARY", "(untitled)")
         dtstart = arrow.get(e["DTSTART"].dt).to("local")
         dtend = arrow.get(e["DTEND"].dt).to("local")
-        
+
         # Hard coded for emails
         organiser = e.get("ORGANIZER", "")
         if organiser != "":
@@ -32,7 +32,7 @@ class ParseEvents:
             eventname=event_name,
             location=e.get("LOCATION", ""),
             isimportant=("[!]" in event_name),
-            organiser=organiser
+            organiser=organiser,
         )
 
     def filt(self) -> list[event.T]:
