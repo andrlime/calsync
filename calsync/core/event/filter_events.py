@@ -17,8 +17,15 @@ class FilterEvents:
 
         self.events = events
 
-    def filt(self) -> list[icalendar.Event]:
+    def filt(self) -> tuple[list[icalendar.Event], list[arrow.Arrow]]:
         logger.info("Filtered events ok")
-        return recurring_ical_events.of(self.events).between(  # type: ignore[no-any-return]
+
+        list_of_days = []
+        begin = self.begin
+        while begin < self.end:
+            list_of_days.append(begin)
+            begin = begin.shift(days=1)
+
+        return recurring_ical_events.of(self.events).between(
             self.begin.naive, self.end.naive
-        )
+        ), list_of_days

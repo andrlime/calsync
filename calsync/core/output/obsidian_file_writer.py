@@ -42,17 +42,12 @@ class ObsidianFileWriter(BaseFileWriter):
         )
         file.write_text(updated, encoding="utf-8")
 
-    def write_day_(self, items: list[event.T]) -> None:
-        if len(items) == 0:
-            logger.warn("No items found!")
-            return
-        filename = items[0].rawday.format("YY-MMDD-dddd")
-        formatted_path = f"{self.base_url}/{filename}.md"
-
+    def write_day_(self, day: str, items: list[event.T]) -> None:
+        formatted_path = f"{self.base_url}/{day}.md"
         formatted_items = "\n".join([e.to_obsidian_string() for e in items])
         self.replace_section_(formatted_path, formatted_items)
 
     def write(self) -> None:
         """Writes files into Obsidian files"""
-        for bucket in self.events.values():
-            self.write_day_(items=bucket)
+        for day, bucket in self.events.items():
+            self.write_day_(day, items=bucket)
