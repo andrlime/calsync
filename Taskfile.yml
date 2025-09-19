@@ -7,8 +7,11 @@ tasks:
       - poetry run ruff check
   typecheck:
     cmds:
-      - mypy .
+      - poetry run mypy .
   format:
     cmds:
       - poetry run ruff format
+  run:
+    cmds:
+      - poetry run python3 main.py -c config.yaml
 
