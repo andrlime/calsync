@@ -20,6 +20,8 @@ class T:
     location: str
     isimportant: bool
 
+    organiser: str
+
     def __str__(self) -> str:
         time = (
             f"{self.starttime}-{self.endtime}"
@@ -27,7 +29,8 @@ class T:
             else self.starttime
         )
         location = f"`{self.location}`" if self.location != "" else ""
-        return f"{time} {self.eventname} {location}"
+        organiser = f"`host:{self.organiser}`" if self.organiser != "" else ""
+        return f"{time} {self.eventname} {location} {organiser}".strip()
 
     def to_obsidian_string(self) -> str:
         checkbox_type = "!" if self.isimportant else "<"
