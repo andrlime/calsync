@@ -1,0 +1,4 @@
+sync_settings:
+  frequency_seconds: 3600
+  lookahead_days_inclusive: 3
+  ics_url_env_variable: "ICS_URL"
