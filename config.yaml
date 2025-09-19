@@ -1,4 +1,4 @@
-lookahead_days_inclusive: 3
+lookahead_days_inclusive: 90
 ics_url_env_variable: "ICS_URL"
 obsidian_env_variable: "OBSIDIAN_BASE_URL"
 start_marker: "`START-XX`"
