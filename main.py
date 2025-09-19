@@ -1,15 +1,13 @@
 import calsync.core.calendar as calendar
 import calsync.core.event as event
-import calsync.core.duckdb as duckdb
 import calsync.core.output as output
 
-from calsync.util.config import AppConfig
 
 if __name__ == "__main__":
-    ics_calendar = calendar.IcsCalendar().read()
+    ics_calendar_events = calendar.IcsCalendar().read()
 
-    all_events = event.IcsReader(ics_calendar).read()
-    parsed_events = event.Parser(all_events).parse_and_format()
-    filtered_events = duckdb.FilterEvents(parsed_events).filter_by_date()
+    filtered_events = event.FilterEvents(ics_calendar_events).filt()
+    parsed_events = event.ParseEvents(filtered_events).filt()
+    event_buckets = event.BucketEvents(parsed_events).filt()
 
-    output.ObsidianFileWriter(parsed_events).write()
+    output.ObsidianFileWriter(event_buckets).write()

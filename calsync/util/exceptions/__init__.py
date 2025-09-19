@@ -8,3 +8,4 @@ from .environment_value_error import (
     EnvironmentValueError as EnvironmentValueError,
 )
 from .path_error import PathError as PathError
+from .request_error import RequestError as RequestError

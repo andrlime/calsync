@@ -1,4 +1,5 @@
-sync_settings:
-  frequency_seconds: 3600
-  lookahead_days_inclusive: 3
-  ics_url_env_variable: "ICS_URL"
+lookahead_days_inclusive: 3
+ics_url_env_variable: "ICS_URL"
+obsidian_env_variable: "OBSIDIAN_BASE_URL"
+start_marker: "`START-XX`"
+end_marker: "`END-XX`"
