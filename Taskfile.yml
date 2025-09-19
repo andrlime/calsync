@@ -1,0 +1,14 @@
+version: '3'
+
+tasks:
+  lint:
+    cmds:
+      - poetry run ruff format --check
+      - poetry run ruff check
+  typecheck:
+    cmds:
+      - mypy .
+  format:
+    cmds:
+      - poetry run ruff format
+

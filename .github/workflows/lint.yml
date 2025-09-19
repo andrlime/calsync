@@ -1,0 +1,36 @@
+name: "[ci] run mypy and ruff"
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Install Poetry dependencies
+        run: poetry install
+      
+      - name: Run mypy on src files
+        run: poetry run mypy .
+      
+      - name: Run ruff format on src files
+        run: poetry run ruff format --check
+
+      - name: Run ruff check on src files
+        run: poetry run ruff check
