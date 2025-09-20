@@ -34,4 +34,4 @@ class T:
         checkbox_type = "!" if self.isimportant else "<"
         location = ("\n\t" + create_location_checkbox_(f"`at:{self.location}`")) if self.location != "" else ""
         organiser = ("\n\t" + create_star_checkbox_(f"`host:{self.organiser}`")) if self.organiser != "" else ""
-        return f"- [{checkbox_type}] {str(self)}{location}{organiser}"
+        return create_checkbox_(f"{str(self)}{location}{organiser}", checkbox_type)
