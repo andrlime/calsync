@@ -28,10 +28,10 @@ class T:
             if self.starttime != self.endtime
             else self.starttime
         )
-        location = f"`{self.location}`" if self.location != "" else ""
-        organiser = f"`host:{self.organiser}`" if self.organiser != "" else ""
-        return f"{time} {self.eventname} {location} {organiser}".strip()
+        return f"{time} {self.eventname}".strip()
 
     def to_obsidian_string(self) -> str:
         checkbox_type = "!" if self.isimportant else "<"
-        return f"- [{checkbox_type}] {str(self)}"
+        location = f"\n\t- [l] `at:{self.location}`" if self.location != "" else ""
+        organiser = f"\n\t- [*] `host:{self.organiser}`" if self.organiser != "" else ""
+        return f"- [{checkbox_type}] {str(self)}{location}{organiser}"

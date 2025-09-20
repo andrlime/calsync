@@ -1,5 +1,5 @@
-lookahead_days_inclusive: 90
+lookahead_days_inclusive: 14
 ics_url_env_variable: "ICS_URL"
 obsidian_env_variable: "OBSIDIAN_BASE_URL"
-start_marker: "`START-XX`"
-end_marker: "`END-XX`"
+start_marker: "<!-- start_calsync -->"
+end_marker: "<!-- end_calsync -->"
