@@ -2,24 +2,24 @@ from dataclasses import dataclass
 
 import arrow
 
+def create_checkbox_(contents: str, checkbox_type: str = " ") -> str:
+    return f"- [{checkbox_type}] {contents}"
+
+def create_location_checkbox_(contents: str) -> str:
+    return create_checkbox_(contents, "l")
+
+def create_star_checkbox_(contents: str) -> str:
+    return create_checkbox_(contents, "*")
 
 @dataclass
 class T:
-    # Example: 2025, 10, 20
-    year: int
-    month: int
-    day: int
     rawday: arrow.Arrow
-
-    # Example: 1300, 1445
     starttime: str
     endtime: str
 
-    # Example: Hello world, ABC Field, false
     eventname: str
     location: str
     isimportant: bool
-
     organiser: str
 
     def __str__(self) -> str:
@@ -32,6 +32,6 @@ class T:
 
     def to_obsidian_string(self) -> str:
         checkbox_type = "!" if self.isimportant else "<"
-        location = f"\n\t- [l] `at:{self.location}`" if self.location != "" else ""
-        organiser = f"\n\t- [*] `host:{self.organiser}`" if self.organiser != "" else ""
+        location = ("\n\t" + create_location_checkbox_(f"`at:{self.location}`")) if self.location != "" else ""
+        organiser = ("\n\t" + create_star_checkbox_(f"`host:{self.organiser}`")) if self.organiser != "" else ""
         return f"- [{checkbox_type}] {str(self)}{location}{organiser}"
