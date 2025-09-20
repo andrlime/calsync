@@ -35,11 +35,16 @@ class EventStore_:
 
 class BucketEvents:
     def __init__(self, events: list[event.T], days: list[arrow.Arrow]) -> None:
+        logger.info(
+            f"Initializing BucketEvents with {len(events)} events across {len(days)} days"
+        )
         self.store = EventStore_()
         [self.store.create_bucket(d) for d in days]
         [self.store.add_event(e) for e in events]
         self.store.sort_buckets()
+        logger.info("BucketEvents initialization completed")
 
     def filt(self) -> dict[str, list[event.T]]:
-        logger.info("Bucket events ok")
-        return self.store.get()
+        buckets = self.store.get()
+        logger.info(f"Event bucketing completed: {len(buckets)} day buckets created")
+        return buckets

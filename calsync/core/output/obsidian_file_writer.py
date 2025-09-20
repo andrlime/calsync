@@ -19,6 +19,11 @@ class ObsidianFileWriter(BaseFileWriter):
         self.start_marker = cfg.get_config_variable("start_marker")
         self.end_marker = cfg.get_config_variable("end_marker")
 
+        total_events = sum(len(bucket) for bucket in events.values())
+        logger.info(
+            f"Initialized ObsidianFileWriter for {len(events)} day buckets with {total_events} total events"
+        )
+
     def replace_section_(self, path: str, new_text: str) -> None:
         logger.info(f"Writing path {path}")
 
@@ -41,13 +46,19 @@ class ObsidianFileWriter(BaseFileWriter):
             content[:start] + self.start_marker + "\n" + new_text + "\n" + content[end:]
         )
         file.write_text(updated, encoding="utf-8")
+        logger.info(f"Successfully updated file: {path}")
 
     def write_day_(self, day: str, items: list[event.T]) -> None:
         formatted_path = f"{self.base_url}/{day}.md"
         formatted_items = "\n".join([e.to_obsidian_string() for e in items])
+        logger.info(f"Writing {len(items)} events for day {day}")
         self.replace_section_(formatted_path, formatted_items)
 
     def write(self) -> None:
         """Writes files into Obsidian files"""
+        logger.info(
+            f"Starting to write {len(self.events)} day buckets to Obsidian files"
+        )
         for day, bucket in self.events.items():
             self.write_day_(day, items=bucket)
+        logger.info("Completed writing all events to Obsidian files")

@@ -11,6 +11,9 @@ import sys
 import pathlib
 
 from calsync.util.exceptions import CLIValueError, PathError
+from calsync.util.logger import create_logger
+
+logger = create_logger()
 
 
 def argv() -> list[str]:
@@ -31,6 +34,7 @@ class AppCLI:
         if hasattr(self, "args"):
             return
 
+        logger.info("Parsing command line arguments")
         arguments = argv()
 
         parser = argparse.ArgumentParser(
@@ -49,13 +53,17 @@ Syncs from an ICS format calendar and streams to some other destination
         )
 
         self.args = parser.parse_args(arguments)
+        logger.info(f"Parsed CLI arguments: config file = {self.args.config}")
         self.lint()
 
     def lint(self) -> None:
         arguments: Namespace = self.args
 
         if not os.path.isfile(arguments.config):
+            logger.error(f"Invalid config file: {arguments.config}")
             raise PathError(f"Invalid config file {arguments.config}")
+
+        logger.info("CLI argument validation completed successfully")
 
     def get_parameters(self) -> dict[str, Any]:
         return dict(vars(self.args))

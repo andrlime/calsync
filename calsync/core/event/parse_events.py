@@ -9,7 +9,9 @@ logger = create_logger()
 
 class ParseEvents:
     def __init__(self, events: list[icalendar.Event]):
+        logger.info(f"Parsing {len(events)} calendar events")
         self.events = [self.parse_event(e) for e in events]
+        logger.info(f"Successfully parsed {len(self.events)} events")
 
     def parse_event(self, e: icalendar.Event) -> event.T:
         event_name = e.get("SUMMARY", "(untitled)")
@@ -33,5 +35,7 @@ class ParseEvents:
         )
 
     def filt(self) -> list[event.T]:
-        logger.info("Parsed events ok")
+        logger.info(
+            f"Event parsing completed: returning {len(self.events)} parsed events"
+        )
         return self.events
