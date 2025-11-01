@@ -37,12 +37,12 @@ class T:
     def to_obsidian_string(self) -> str:
         checkbox_type = "!" if self.isimportant else "<"
         location = (
-            ("\n\t" + create_location_checkbox_(f"`at:{self.location}`"))
+            ("\n\t" + create_location_checkbox_(f"`at: {self.location.replace("\n", " ")}`"))
             if self.location != ""
             else ""
         )
         organiser = (
-            ("\n\t" + create_star_checkbox_(f"`host:{self.organiser}`"))
+            ("\n\t" + create_star_checkbox_(f"`host: {self.organiser.replace("\n", " ")}`"))
             if self.organiser != ""
             else ""
         )
