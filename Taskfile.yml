@@ -3,15 +3,23 @@ version: '3'
 tasks:
   lint:
     cmds:
-      - poetry run ruff format --check
-      - poetry run ruff check
+      - uv run ruff format --check
+      - uv run ruff check
   typecheck:
     cmds:
-      - poetry run mypy .
+      - uv run mypy
   format:
     cmds:
-      - poetry run ruff format
+      - uv run ruff check --select I --fix
+      - uv run ruff format
+  strict-check:
+    cmds:
+      - uv run pyrefly check
+  checks:
+    cmds:
+      - task: format
+      - task: lint
+      - task: strict-check
   run:
     cmds:
-      - poetry run python3 main.py -c config.yaml
-
+      - uv run main.py -c config.yaml
