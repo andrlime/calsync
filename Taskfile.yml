@@ -5,9 +5,6 @@ tasks:
     cmds:
       - uv run ruff format --check
       - uv run ruff check
-  typecheck:
-    cmds:
-      - uv run mypy
   format:
     cmds:
       - uv run ruff check --select I --fix

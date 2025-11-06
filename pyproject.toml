@@ -22,7 +22,6 @@ project-excludes = ["**/*venv/**/*"]
 
 [dependency-groups]
 dev = [
-    "mypy>=1.18.2",
     "pyrefly>=0.40.0",
     "ruff>=0.14.3",
 ]
