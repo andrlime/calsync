@@ -18,19 +18,19 @@ jobs:
       - name: Set up Python 3.12
         uses: actions/setup-python@v3
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Install Poetry
-        run: pipx install poetry
-
-      - name: Install Poetry dependencies
-        run: poetry install
+        run: pipx install uv
       
-      - name: Run mypy on src files
-        run: poetry run mypy .
+      - name: Run ruff format check on src files
+        run: uv run ruff format --check
       
-      - name: Run ruff format on src files
-        run: poetry run ruff format --check
-
       - name: Run ruff check on src files
-        run: poetry run ruff check
+        run: uv run ruff check
+      
+      - name: Run mypy typecheck on src files
+        run: uv run mypy
+
+      - name: Run pyrefly check on src files
+        run: uv run pyrefly check
