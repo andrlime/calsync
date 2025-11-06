@@ -3,18 +3,17 @@ App config singleton class
 """
 
 import os
-
-from typing import Any
+from typing import Any, Optional
 
 from dotenv import load_dotenv
 
-from calsync.util.yml_reader import read_yaml_file
 from calsync.util.cli import AppCLI
 from calsync.util.exceptions import (
-    ConfigValueError,
     CLIValueError,
+    ConfigValueError,
     EnvironmentValueError,
 )
+from calsync.util.yml_reader import read_yaml_file
 
 
 class AppConfig(object):
@@ -23,9 +22,12 @@ class AppConfig(object):
     return a single dictionary with those values
     """
 
+    instance: Optional[AppConfig]
+
     def __new__(cls) -> "AppConfig":
         if not hasattr(cls, "instance"):
             cls.instance = super(AppConfig, cls).__new__(cls)
+        assert cls.instance is not None
         return cls.instance
 
     def __init__(self) -> None:

@@ -4,7 +4,7 @@ Reads stuff from YAML files
 
 from typing import Any
 
-from yaml import load, Loader
+from yaml import Loader, load
 
 
 def read_yaml_file(path: str) -> dict[str, Any]:

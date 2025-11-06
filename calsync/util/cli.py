@@ -2,13 +2,12 @@
 CLI class that reads specific arguments
 """
 
-from typing import Any, AnyStr
-from argparse import Namespace
-
 import argparse
 import os
-import sys
 import pathlib
+import sys
+from argparse import Namespace
+from typing import Any, AnyStr, Optional
 
 from calsync.util.exceptions import CLIValueError, PathError
 
@@ -22,9 +21,12 @@ class AppCLI:
     Singleton CLI class to read arguments from an array of strings
     """
 
+    instance: Optional[AppCLI]
+
     def __new__(cls) -> "AppCLI":
         if not hasattr(cls, "instance"):
             cls.instance = super(AppCLI, cls).__new__(cls)
+        assert cls.instance is not None
         return cls.instance
 
     def __init__(self) -> None:

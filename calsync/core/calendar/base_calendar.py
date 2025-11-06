@@ -1,6 +1,6 @@
-import icalendar
-
 from abc import ABC, abstractmethod
+
+import icalendar
 
 
 class BaseCalendar(ABC):

@@ -1,7 +1,6 @@
 import icalendar
 import requests
 
-
 from calsync.core.calendar.base_calendar import BaseCalendar
 from calsync.util.config import AppConfig
 from calsync.util.exceptions import RequestError

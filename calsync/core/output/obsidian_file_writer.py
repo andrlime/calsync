@@ -1,10 +1,9 @@
 from pathlib import Path
 
+import calsync.core.event as event
 from calsync.core.output.base_file_writer import BaseFileWriter
 from calsync.util.config import AppConfig
 from calsync.util.logger import create_logger
-
-import calsync.core.event as event
 
 logger = create_logger()
 
@@ -25,7 +24,7 @@ class ObsidianFileWriter(BaseFileWriter):
         file = Path(path)
 
         if not file.exists():
-            logger.warn(f"Path does not exist: {path}")
+            logger.warning(f"Path does not exist: {path}")
             return
 
         content = file.read_text(encoding="utf-8")
@@ -34,7 +33,7 @@ class ObsidianFileWriter(BaseFileWriter):
 
         markers_not_found = start == -1 or end == -1
         if markers_not_found:
-            logger.warn(f"Markers not found in path: {path}")
+            logger.warning(f"Markers not found in path: {path}")
             return
 
         updated = (
